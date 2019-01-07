@@ -10,7 +10,11 @@ const MessageSchema = new mongoose.Schema({
         ref: 'User'
     },
     text: String,
-    timeStamp: String
+    timeStamp: String,
+    wasEdited: { type: Boolean, default: false },
+    editionTimeStamp: String,
+    wasDeletedLocally: { type: Boolean, default: false },
+    wasDeletedGlobally: { type: Boolean, default: false }
 })
 
 module.exports = mongoose.model('Message', MessageSchema)

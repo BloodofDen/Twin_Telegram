@@ -7,6 +7,8 @@ import styled from 'styled-components'
 import { fetchMessage } from '../../rest/index'
 import {
     ADD_MESSAGE,
+    UPDATE_MESSAGE,
+    DELETE_MESSAGE,
     INCREMENT_UNREAD_MESSAGE
 } from '../../redux/actions/actions'
 
@@ -40,7 +42,7 @@ class Messanger extends Component {
 
         this.messagesChannel = pusher.subscribe('messages')
         this.messagesChannel.bind('insert', this.handleMessageInsert)
-        // this.messagesChannel.bind('deleted', this.removeTask)
+        this.messagesChannel.bind('update', this.handleMessageUpdate)
     }
 
     handleMessageInsert = newMessage => {
@@ -65,6 +67,31 @@ class Messanger extends Component {
         }
     }
 
+    handleMessageUpdate = ({ updatedMessageId, updatedFields }) => {
+        const { user, conversation: { messages }, UPDATE_MESSAGE, DELETE_MESSAGE } = this.props
+        const message = messages.find(m => m._id === updatedMessageId)
+
+        if(!message) {
+            console.log('IT IS NOT YOUR MESSAGE OR IT WAS REMOVED!')
+
+            return
+        }
+
+        if(updatedFields.wasDeletedGlobally) {
+            DELETE_MESSAGE(updatedMessageId)
+
+            return
+        }
+
+        if(message.wasEdited && message.wasEditedByCurrentUser) {
+            console.log('THIS MESSAGE IS ALREADY UPDATED IN YOUR LIST')
+
+            return
+        }
+
+        fetchMessage(user._id, updatedMessageId).then(msg => UPDATE_MESSAGE(msg))
+    }
+
     render() {
         return (
             <MessangerStyle className="slds-grid slds-grid_vertical">
@@ -83,6 +110,8 @@ const mapStateToProps = ({ conversation, conversationList, authUser: { user } })
 export default withRouter(
     connect(mapStateToProps, {
         ADD_MESSAGE,
+        UPDATE_MESSAGE,
+        DELETE_MESSAGE,
         INCREMENT_UNREAD_MESSAGE
     })(Messanger)
 )

@@ -19,7 +19,7 @@ import emailIcon from '../../assets/email-icon.svg'
 import atIcon from '../../assets/at-icon.svg'
 import paletteIcon from '../../assets/palette-icon.svg'
 
-import * as Style from './PersonalInfoStyle'
+import * as Styles from './PersonalInfoStyle'
 
 class PersonalInfo extends Component {
 
@@ -52,44 +52,43 @@ class PersonalInfo extends Component {
             <div className="slds-is-absolute">
                 <section tabIndex="-1" className="slds-modal slds-slide-up-open">
                     <div className="slds-modal__container">
-                        <Style.PersonalInfoStyle>
+                        <Styles.PersonalInfoStyle>
                             <article className="slds-grid slds-grid_align-spread slds-p-around_small">
                                 <p className="slds-text-heading_small slds-text-heading_label">Settings</p>
                                 <div className="slds-grid">
-                                    {/* <button className="slds-button slds-button_icon slds-m-right_x-small" title="Edit"><Style.IconStyle src={editIcon} alt="Edit"/></button> */}
-                                    <button className="slds-button slds-button_icon" title="Close" onClick={this.closeModal}><Style.IconStyle src={closeIcon} alt="Close"/></button>
+                                    <button className="slds-button slds-button_icon" title="Close" onClick={this.closeModal}><Styles.IconStyle src={closeIcon} alt="Close"/></button>
                                 </div>
                             </article>
-                            <Style.BgGreenStyle className="slds-p-vertical_small">
+                            <Styles.BgGreenStyle className="slds-p-vertical_small">
                                 <div className="slds-grid slds-p-horizontal_medium">
-                                    <Style.PhotoStyle className="slds-is-relative slds-m-right_medium" style={{backgroundColor: user.color || '#94CC4C'}}>
+                                    <Styles.PhotoStyle className="slds-is-relative slds-m-right_medium" style={{backgroundColor: user.color || '#94CC4C'}}>
                                         <span className="slds-is-absolute slds-text-color_inverse">{user.name[0].toUpperCase()}</span>
-                                    </Style.PhotoStyle>
+                                    </Styles.PhotoStyle>
                                     <EditField field="name" obj={user} onChange={this.handleFieldValueChanged} inversedColor/>
                                 </div>
-                            </Style.BgGreenStyle>
+                            </Styles.BgGreenStyle>
                             <div className="slds-p-vertical_medium">
                                 <article className="slds-p-horizontal_x-large slds-p-vertical_small">
                                     <div className="slds-grid slds-grid_vertical-align-center">
-                                        <Style.IconStyle src={atIcon} className="slds-m-right_xx-large" alt="Nickname" title="Nickname"/>
+                                        <Styles.IconStyle src={atIcon} className="slds-m-right_xx-large" alt="Nickname" title="Nickname"/>
                                         <EditField field="alias" obj={user} onChange={this.handleFieldValueChanged}/>
                                     </div>
                                 </article>
                                 <article className="slds-p-horizontal_x-large slds-p-vertical_small">
                                     <div className="slds-grid slds-grid_vertical-align-center">
-                                        <Style.IconStyle src={emailIcon} className="slds-m-right_xx-large" alt="Email Address" title="Email Address"/>
+                                        <Styles.IconStyle src={emailIcon} className="slds-m-right_xx-large" alt="Email Address" title="Email Address"/>
                                         <EditField field="email" obj={user} onChange={this.handleFieldValueChanged}/>
                                     </div>
                                 </article>
                                 <article className="slds-p-horizontal_x-large slds-p-vertical_small">
                                     <div className="slds-grid slds-grid_vertical-align-center">
-                                        <Style.IconStyle src={smartphoneIcon} className="slds-m-right_xx-large" alt="Phone" title="Phone"/>
+                                        <Styles.IconStyle src={smartphoneIcon} className="slds-m-right_xx-large" alt="Phone" title="Phone"/>
                                         <EditField field="phone" obj={user} onChange={this.handleFieldValueChanged}/>
                                     </div>
                                 </article>
                                 <article className="slds-p-horizontal_x-large slds-p-vertical_small">
                                     <div className="slds-grid slds-grid_vertical-align-center">
-                                        <Style.IconStyle src={paletteIcon} className="slds-m-right_xx-large" alt="Profile color" title="Profile color"/>
+                                        <Styles.IconStyle src={paletteIcon} className="slds-m-right_xx-large" alt="Profile color" title="Profile color"/>
                                         <HuePicker
                                             color={user.color || '#94CC4C'}
                                             onChange={this.handleChangeColor}
@@ -98,7 +97,7 @@ class PersonalInfo extends Component {
                                     </div>
                                 </article>
                             </div>
-                        </Style.PersonalInfoStyle>
+                        </Styles.PersonalInfoStyle>
                     </div>
                 </section>
                 <div className="slds-backdrop slds-backdrop_open"/>
@@ -187,8 +186,8 @@ class EditField extends Component {
                 <div className="slds-form-element__control">
                     <div className="slds-combobox_container">
                         <div className="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
-                            <Style.EditDataFieldStyle className="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right slds-is-relative" role="none">
-                                <Style.InputStyle
+                            <Styles.EditDataFieldStyle className="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right slds-is-relative" role="none">
+                                <Styles.InputStyle
                                     className="slds-input slds-combobox__input"
                                     autoComplete="off"
                                     type="text"
@@ -201,32 +200,32 @@ class EditField extends Component {
                                     ref={input => { this.inputField = input; }}/>
                                     
                                 { isEditMode ? (
-                                    <Style.ShiftStyle className="slds-is-absolute">
-                                        <Style.ButtonStyle className="slds-button slds-button_icon" title="Save" onClick={this.changeData}>
+                                    <Styles.ShiftStyle className="slds-is-absolute">
+                                        <Styles.ButtonStyle className="slds-button slds-button_icon" title="Save" onClick={this.changeData}>
                                             <span className="slds-button__icon">
-                                                <Style.IconStyle src={inversedColor ? checkWhiteIcon : checkIcon} className="slds-icon slds-icon slds-icon-text-default"/>
+                                                <Styles.IconStyle src={inversedColor ? checkWhiteIcon : checkIcon} className="slds-icon slds-icon slds-icon-text-default"/>
                                             </span>
-                                        </Style.ButtonStyle>
-                                        <Style.ButtonStyle className="slds-button slds-button_icon" title="Cancel" onClick={this.editCancel}>
+                                        </Styles.ButtonStyle>
+                                        <Styles.ButtonStyle className="slds-button slds-button_icon" title="Cancel" onClick={this.editCancel}>
                                             <span className="slds-button__icon">
-                                                <Style.IconStyle src={inversedColor ? closeWhiteIcon : closeIcon} className="slds-icon slds-icon slds-icon-text-default"/>
+                                                <Styles.IconStyle src={inversedColor ? closeWhiteIcon : closeIcon} className="slds-icon slds-icon slds-icon-text-default"/>
                                             </span>
-                                        </Style.ButtonStyle>
-                                    </Style.ShiftStyle>
+                                        </Styles.ButtonStyle>
+                                    </Styles.ShiftStyle>
                                 ) : (
                                     <Fragment>
                                         { isShowSpinner ? (
                                             <Spinner className="slds-input__icon" x_small/>
                                         ) : (
-                                            <Style.ButtonShiftStyle className="slds-button slds-button_icon slds-is-absolute edit-icon" title="Edit" onClick={this.toggleEnableEditMode}>
+                                            <Styles.ButtonShiftStyle className="slds-button slds-button_icon slds-is-absolute edit-icon" title="Edit" onClick={this.toggleEnableEditMode}>
                                                 <span className="slds-button__icon">
-                                                    <Style.IconStyle src={inversedColor ? editWhiteIcon : editIcon} className="slds-icon slds-icon slds-icon-text-default"/>
+                                                    <Styles.IconStyle src={inversedColor ? editWhiteIcon : editIcon} className="slds-icon slds-icon slds-icon-text-default"/>
                                                 </span>
-                                            </Style.ButtonShiftStyle>
+                                            </Styles.ButtonShiftStyle>
                                         )}
                                     </Fragment>
                                 ) }                                    
-                            </Style.EditDataFieldStyle>
+                            </Styles.EditDataFieldStyle>
                         </div>
                     </div>
                 </div>

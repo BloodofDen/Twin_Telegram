@@ -93,3 +93,8 @@ export const editUser = (userId, label, data) => axios.post(`${url}user/edit`, {
 
 export const fetchMessage = (userId, messageId) => axios.post(`${url}getMessage`, { userId, messageId })
     .then(({ data }) => data)
+
+export const editMessage = (messageId, newValue, editionTimeStamp) => axios.post(`${url}editMessage`, { messageId, newValue, editionTimeStamp })
+    .then((editedMessageId) => editedMessageId)
+
+export const deleteMessage = (messageId, wasDeletedGlobally) => axios.post(`${url}deleteMessage`, { messageId, wasDeletedGlobally })

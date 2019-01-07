@@ -1,60 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
-// import { SET_USER } from '../../redux/actions/actions'
-// import { signInUser, signUpUser } from '../../rest/index'
-// import Spinner from '../common/Spinner'
-// import './Auth.css'
+import { sendMessage } from '../../../../rest/index'
+import { ADD_MESSAGE, UPDATE_MESSAGE_ID } from '../../../../redux/actions/actions'
+import sendButton from '../../../../assets/send-button.svg'
 
-import { sendMessage } from '../../../rest/index'
-import {
-    ADD_MESSAGE,
-    UPDATE_MESSAGE_ID
-} from '../../../redux/actions/actions'
-
-import sendButton from '../../../assets/send-button.svg'
-
-const SendMessageInputStyle = styled.div`
-    // background: gray;
-    border-top: 2px solid rgba(230,235,239,1);
-`
-
-const IconStyle = styled.img`
-    height: 32px;
-`
-
-const FormStyle = styled.form`
-    margin: 0 auto;
-
-    & > textarea {
-        resize: none;
-        min-width: 300px;
-    }
-`
-
-const PhotoStyle = styled.div`
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-
-    > span {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-weight: bold;
-        font-size: 1.3rem;
-    }
-`
-
-const MyPhotoStyle = styled(PhotoStyle)`
-    margin-right: auto;
-`
-
-const CompanionPhotoStyle = styled(PhotoStyle)`
-    margin-left: auto;
-`
+import * as Styles from './SendMessageInputStyle'
 
 class SendMessageInput extends Component {
 
@@ -80,10 +33,8 @@ class SendMessageInput extends Component {
     sendMessage = async (e) => {
         e.preventDefault && e.preventDefault()
 
-        let { message } = this.state
+        const message = this.state.message.trim()
         const { conversation, user, ADD_MESSAGE, UPDATE_MESSAGE_ID } = this.props
-
-        message = message.trim()
 
         if(!message) return
 
@@ -110,12 +61,14 @@ class SendMessageInput extends Component {
         const { message } = this.state
 
         return (
-            <SendMessageInputStyle className="slds-p-horizontal_xxx-small slds-p-vertical_small">
+            <Styles.SendMessageInputStyle className="slds-p-horizontal_xxx-small slds-p-vertical_small">
                 <div className="slds-p-horizontal_small slds-grid slds-grid_vertical-align-center">
-                    <MyPhotoStyle className="slds-is-relative" style={{backgroundColor: user.color || '#94CC4C'}}>
-                        <span className="slds-is-absolute">{user.name[0].toUpperCase()}</span>
-                    </MyPhotoStyle>
-                    <FormStyle onSubmit={this.sendMessage}
+                    <Link to="/personal_info" className="slds-text-link_reset">
+                        <Styles.MyPhotoStyle className="slds-is-relative" style={{backgroundColor: user.color || '#94CC4C'}}>
+                            <span className="slds-is-absolute">{user.name[0].toUpperCase()}</span>
+                        </Styles.MyPhotoStyle>
+                    </Link>
+                    <Styles.FormStyle onSubmit={this.sendMessage}
                         className="slds-grid slds-grid_vertical-align-center slds-grid_align-space">
                         <textarea
                             rows="2"
@@ -126,14 +79,14 @@ class SendMessageInput extends Component {
                             onKeyDown={this.checkPressedKey}
                         />
                         <button className="slds-button slds-button_icon" title="Send Message" onClick={this.sendMessage}>
-                            <IconStyle src={sendButton} />
+                            <Styles.IconStyle src={sendButton} />
                         </button>
-                    </FormStyle>
-                    <CompanionPhotoStyle className="slds-is-relative" style={{backgroundColor: conversation.color || '#94CC4C'}}>
+                    </Styles.FormStyle>
+                    <Styles.CompanionPhotoStyle className="slds-is-relative" style={{backgroundColor: conversation.color || '#94CC4C'}}>
                         <span className="slds-is-absolute">{conversation[conversation.title ? 'title' : 'name'][0].toUpperCase()}</span>
-                    </CompanionPhotoStyle>
+                    </Styles.CompanionPhotoStyle>
                 </div>
-            </SendMessageInputStyle>
+            </Styles.SendMessageInputStyle>
         )
     }
 

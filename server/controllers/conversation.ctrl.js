@@ -73,7 +73,19 @@ const getConversation = async (req, res, next) => {
 
     try {
         const conversation = { ...(await Conversation.findById(conversationId))._doc }        
-        conversation.messages = await Message.find({ conversationId: ObjectId(conversationId) }) || []
+        conversation.messages = await Message.find({
+            conversationId: ObjectId(conversationId),
+            wasDeletedGlobally: { $ne: true },
+            $or: [
+                { fromUserId: { $ne: ObjectId(userId) } },
+                {
+                    $and: [
+                        { fromUserId: ObjectId(userId) },
+                        { wasDeletedLocally: { $ne: true } }
+                    ]
+                }
+            ]
+        })
         
         const userToConversationsOfConversations = await UserToConversation.find({
             userId: {
@@ -244,6 +256,45 @@ const getMessage = (req, res, next) => {
         })
 }
 
+const editMessage = (req, res, next) => {
+    const { messageId, newValue, editionTimeStamp } = req.body
+
+    Message.findByIdAndUpdate(
+        messageId,
+        {
+            $set: {
+                text: newValue,
+                editionTimeStamp,
+                wasEdited: true
+            }
+        },
+        (err, updatedRecord) => {
+            res.send(updatedRecord._id)
+
+            next()
+        }
+    )
+}
+
+const deleteMessage = (req, res, next) => {
+    const { messageId, wasDeletedGlobally } = req.body
+
+    Message.findByIdAndUpdate(
+        messageId,
+        {
+            $set: {
+                wasDeletedLocally: true,
+                wasDeletedGlobally
+            }
+        },
+        (err, updatedRecord) => {
+            res.send(updatedRecord._id)
+
+            next()
+        }
+    )
+}
+
 module.exports = {
     getConversations,
     getConversation,
@@ -251,5 +302,7 @@ module.exports = {
     addUserToConversation,
     removeUserFromConversation,
     addMessage,
-    getMessage
+    getMessage,
+    editMessage,
+    deleteMessage
 }

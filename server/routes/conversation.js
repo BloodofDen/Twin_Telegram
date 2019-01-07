@@ -24,4 +24,12 @@ module.exports = (router) => {
         .route('/getMessage')
         .post(conversationController.getMessage)
 
+    router
+        .route('/editMessage')
+        .post(conversationController.editMessage)
+
+    router
+        .route('/deleteMessage')
+        .post(conversationController.deleteMessage)
+
 }

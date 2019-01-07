@@ -6,7 +6,7 @@ const initialState = {
     isShowSpinner: false
 }
 
-export default (state = initialState, { type, conversation, messageData, messageUpdateData }) => {
+export default (state = initialState, { type, conversation, messageData, messageUpdateData, updatedMessageData, editedMessageData, messageId }) => {
     switch (type) {
         case 'SET_CONVERSATION':
             return {
@@ -32,6 +32,39 @@ export default (state = initialState, { type, conversation, messageData, message
             return {
                 ...cloneDeep(rest),
                 messages
+            }
+        }
+        case 'UPDATE_MESSAGE': {
+            const { messages, ...rest } = state
+            const index = messages.findIndex(m => m._id === updatedMessageData._id)
+            messages.splice(index, 1, updatedMessageData)
+
+            return {
+                ...cloneDeep(rest),
+                messages: cloneDeep(messages)
+            }
+        }
+        case 'EDIT_MESSAGE': {
+            const { messages } = state
+            const { messageId, newValue, editionTimeStamp } = editedMessageData
+            const message = messages.find(m => m._id === messageId)
+
+            message.text = newValue
+            message.editionTimeStamp = editionTimeStamp
+            message.wasEdited = true
+            message.wasEditedByCurrentUser = true
+
+            return {
+                ...cloneDeep(state)
+            }
+        }
+        case 'DELETE_MESSAGE': {
+            const { messages } = state
+            const index = messages.findIndex(m => m._id === messageId)
+            messages.splice(index, 1)
+
+            return {
+                ...cloneDeep(state)
             }
         }
         case 'UPDATE_MESSAGE_ID': {

@@ -37,18 +37,25 @@ mongoose.connect(uri, {
         useTLS: true
     })
 
-    Message.watch().on('change', ({ operationType, fullDocument, ns: { coll }, documentKey }) => {
+    Message.watch().on('change', changedData => {
+        const { operationType, fullDocument, ns: { coll }, documentKey, updateDescription } = changedData
         console.log('***************')
         console.log('Operation Type::: ', operationType)
-        console.log('Collection::: ', operationType)
+        console.log('Collection::: ', coll)
         console.log('Full Document::: ', fullDocument)
+        console.log('Document Key::: ', documentKey)
         console.log('***************')
+        console.log('changedData', changedData)
 
         operationType === 'insert' && pusher.trigger(coll, operationType, {
             _id: fullDocument._id,
             conversationId: fullDocument.conversationId
         })
-        operationType === 'delete' && pusher.trigger(coll, operationType, documentKey._id)    
+        operationType === 'update' && pusher.trigger(coll, operationType, {
+            updatedMessageId: documentKey._id,
+            updatedFields: updateDescription.updatedFields
+        })
+        // operationType === 'delete' && pusher.trigger(coll, operationType, documentKey._id)    
     })
     
     app.listen(port, () => console.log(`Server started at port: ${port}...`))
