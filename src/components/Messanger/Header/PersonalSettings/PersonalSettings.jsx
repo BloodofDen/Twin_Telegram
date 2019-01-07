@@ -1,10 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-// import { SET_USER } from '../../redux/actions/actions'
-// import { signInUser, signUpUser } from '../../rest/index'
 
 import hamburgerIcon from '../../../../assets/hamburger-icon.svg'
 import settingsIcon from '../../../../assets/settings-icon.svg'
@@ -40,10 +38,12 @@ const DropdownStyle = styled.div`
 
     & li {
         padding: 10px;
-        border-bottom: 1px solid #94CC4C;
 
         &:hover {
             background-color: rgba(148,204,76,.1);
+        }
+        &:last-child {
+            border-bottom: 1px solid #94CC4C;
         }
     }
     & span {
@@ -60,7 +60,7 @@ const toggleDropDown = (e) => {
 const PersonalSettings = () => (
     <PersonalSettingsStyle className="slds-dropdown-trigger slds-dropdown-trigger_click" onClick={toggleDropDown} onBlur={toggleDropDown}>
         <LogoStyle className="slds-grid">
-            <img src={hamburgerIcon} className="slds-m-right_medium" />
+            <img src={hamburgerIcon} className="slds-m-right_medium" alt="Menu"/>
             <span className="slds-text-color_inverse slds-text-heading_medium">Telega</span>
         </LogoStyle>
         <DropdownStyle className="slds-dropdown slds-dropdown_fluid">
@@ -75,13 +75,11 @@ const PersonalSettings = () => (
 const MenuItem = ({ title, path, svgIcon }) => (
     <li role="presentation" className="slds-listbox__item">
         <Link to={path} className="slds-text-link_reset">
-            <div
-                role="option"
-                className="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-media_center">
-                    <span className="slds-media__figure">
-                    <img src={svgIcon} className="slds-m-right_medium" />
-                    </span>
-                    <span className="slds-media__body">
+            <div className="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-media_center">
+                <span className="slds-media__figure">
+                    <img src={svgIcon} className="slds-m-right_medium" alt={title}/>
+                </span>
+                <span className="slds-media__body">
                     <span className="slds-text-heading_small slds-truncate">{title}</span>
                 </span>
             </div>
@@ -89,8 +87,7 @@ const MenuItem = ({ title, path, svgIcon }) => (
     </li>
 )
 
-const mapStateToProps = ({ }) => ({ })
-
+const mapStateToProps = () => ({})
 export default withRouter(connect(
     mapStateToProps
 )(PersonalSettings))

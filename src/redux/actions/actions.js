@@ -1,4 +1,5 @@
 export const SET_USER = user => dispatch => dispatch({ type: 'SET_USER', user })
+export const EDIT_USER = (field, value) => dispatch => dispatch({ type: 'EDIT_USER', field, value })
 export const SET_CONVERSATION_LIST = conversations => dispatch => dispatch({ type: 'SET_CONVERSATION_LIST', conversations })
 export const SET_CONVERSATION = conversation => dispatch => dispatch({ type: 'SET_CONVERSATION', conversation })
 export const SET_CONVERSATION_SPINNER = () => dispatch => dispatch({ type: 'SET_CONVERSATION_SPINNER' })

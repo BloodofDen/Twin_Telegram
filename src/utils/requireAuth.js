@@ -11,7 +11,15 @@ export default (Cmp) => {
             !isAuth && this.context.router.history.push('/auth')
         }
 
-        render = () => <Cmp {...this.props} />
+        render() {
+            const { isAuth, ...rest } = this.props
+
+            if(isAuth) {
+                return <Cmp {...rest} />
+            }
+
+            return null
+        }
 
     }
     

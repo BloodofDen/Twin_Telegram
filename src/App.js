@@ -1,12 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Route } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
 
 import Messanger from './components/Messanger/Messanger'
+import PersonalInfo from './components/PersonalInfo/PersonalInfo'
 // import NewConversation from './components/Messanger/NewConversation/NewConversation'
-import PersonalInfo from './components/Messanger/PersonalInfo/PersonalInfo'
 
 const AppStyle = styled.div`
     height: 100vh;
@@ -17,16 +15,10 @@ const AppStyle = styled.div`
     -moz-osx-font-smoothing: grayscale;
 `
 
-const App = ({ isAuth }) => (
+export default () => (
     <AppStyle>
-        { isAuth && <Route path="/" component={Messanger} /> }
-        <Route exact path="/personal_info" component={PersonalInfo} />
+        <Route path="/" component={Messanger} />
+        <Route path="/personal_info" component={PersonalInfo} />
         {/* <Route path="/new_conversation" component={requireAuth(NewConversation)} /> */}
-        {/* <Route path="**" component={Feed} /> */}
     </AppStyle>
-)
-
-const mapStateToProps = ({ authUser: { isAuth } }) => ({ isAuth })
-export default withRouter(
-    connect(mapStateToProps)(App)
 )

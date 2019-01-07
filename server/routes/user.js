@@ -13,6 +13,10 @@ module.exports = (router) => {
     router
         .route('/user/:id')
         .get(userController.getUserInfo)
+
+    router
+        .route('/user/edit')
+        .post(userController.editUser)
     
     // router
     //     .route('/user/:id/anotherUsers')

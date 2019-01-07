@@ -88,5 +88,8 @@ export const searchForUsers = async (curUserId, queryStr, conversationsIds) => {
 export const getUser = userId => axios.get(`${url}user/${userId}`)
     .then(({ data }) => data)
 
+export const editUser = (userId, label, data) => axios.post(`${url}user/edit`, { userId, label, data })
+    .then(userId => userId)
+
 export const fetchMessage = (userId, messageId) => axios.post(`${url}getMessage`, { userId, messageId })
     .then(({ data }) => data)

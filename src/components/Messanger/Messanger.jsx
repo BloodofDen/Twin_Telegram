@@ -81,7 +81,7 @@ class Messanger extends Component {
 
 const mapStateToProps = ({ conversation, conversationList, authUser: { user } }) => ({ user, conversation, conversationList })
 export default withRouter(
-    connect(mapStateToProps,{
+    connect(mapStateToProps, {
         ADD_MESSAGE,
         INCREMENT_UNREAD_MESSAGE
     })(Messanger)

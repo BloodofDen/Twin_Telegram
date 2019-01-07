@@ -33,7 +33,7 @@ export default ({ value, clearSearchBox, onInputHandler, isShowSpinner }) => (
   <div className="slds-form-element slds-p-around_x-small">
     <div className="slds-form-element__control">
       <div className="slds-combobox_container">
-        <div className="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" role="combobox">
+        <div className="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
           <div className="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left slds-is-relative" role="none">
             <InputStyle
                 className="slds-input slds-combobox__input"

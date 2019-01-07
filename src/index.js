@@ -27,8 +27,8 @@ ReactDOM.render((
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <Switch>
-                <Route exact path="/" component={requireAuth(App)} />
                 <Route path="/auth" component={Auth} />
+                <Route path="/" component={requireAuth(App)} />
             </Switch>
         </ConnectedRouter>
     </Provider>

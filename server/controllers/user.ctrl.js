@@ -26,6 +26,25 @@ const getUser = (req, res, next) => {
         })
 }
 
+const editUser = (req, res, next) => {
+    const { userId, label, data } = req.body
+
+    User.findByIdAndUpdate(
+        userId,
+        { $set: { [label]: data }},
+        (err, updatedRecord) => {
+            if(err) {
+                console.error('err-->', err)
+                res.send(err)
+            } else {
+                res.send(updatedRecord._id)
+            }
+
+            next()
+        }
+    )
+}
+
 const getUserInfo = (req, res, next) => {
     User.findById(req.params.id, { password: 0 })
         .then((user, err) => {
@@ -118,6 +137,7 @@ const searchUsers = async (req, res, next) => {
 module.exports = {
     addUser,
     getUser,
+    editUser,
     getUserInfo,
     // getAnotherUsers,
     searchUsers

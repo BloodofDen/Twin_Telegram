@@ -1,11 +1,5 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
+import React from 'react'
 import styled from 'styled-components'
-// import { SET_USER } from '../../redux/actions/actions'
-// import { signInUser, signUpUser } from '../../rest/index'
-// import Spinner from '../common/Spinner'
-// import './Auth.css'
 
 import PersonalSettings from './PersonalSettings/PersonalSettings'
 
@@ -19,9 +13,3 @@ export default () => (
         <PersonalSettings/>
     </HeaderStyle>
 )
-
-// const mapStateToProps = () => ({})
-
-// export default withRouter(connect(
-//     mapStateToProps
-// )(Header))
