@@ -6,7 +6,7 @@ const initialState = {
     isShowSpinner: false
 }
 
-export default (state = initialState, { type, conversation, messageData, messageUpdateData, updatedMessageData, editedMessageData, messageId }) => {
+export default (state = initialState, { type, conversation, messageData, updatedMessageId, updatedMessageData, editedMessageData, messageId }) => {
     switch (type) {
         case 'SET_CONVERSATION':
             return {
@@ -35,13 +35,14 @@ export default (state = initialState, { type, conversation, messageData, message
             }
         }
         case 'UPDATE_MESSAGE': {
-            const { messages, ...rest } = state
-            const index = messages.findIndex(m => m._id === updatedMessageData._id)
-            messages.splice(index, 1, updatedMessageData)
+            const { messages } = state
+            const { messageId, updatedFields } = updatedMessageData
+            const message = messages.find(m => m._id === messageId)
+            
+            Object.assign(message, updatedFields)
 
             return {
-                ...cloneDeep(rest),
-                messages: cloneDeep(messages)
+                ...cloneDeep(state)
             }
         }
         case 'EDIT_MESSAGE': {
@@ -69,10 +70,9 @@ export default (state = initialState, { type, conversation, messageData, message
         }
         case 'UPDATE_MESSAGE_ID': {
             const { messages, ...rest } = state
-            const { messageId } = messageUpdateData
             
             const lastMessage = messages.pop()
-            lastMessage._id = messageId
+            lastMessage._id = updatedMessageId
             
             messages.push(lastMessage)
 

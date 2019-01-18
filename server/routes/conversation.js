@@ -12,6 +12,10 @@ module.exports = (router) => {
         .route('/user/:id/createConversation')
         .post(conversationController.createConversation)
 
+    // router
+    //     .route('/conversationInfo')
+    //     .post(conversationController.getConversationInfo)
+
     router
         .route('/user/:id/conversations')
         .get(conversationController.getConversations)
@@ -31,5 +35,9 @@ module.exports = (router) => {
     router
         .route('/deleteMessage')
         .post(conversationController.deleteMessage)
+
+    router
+        .route('/readMessage')
+        .post(conversationController.readMessage)
 
 }

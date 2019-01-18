@@ -5,24 +5,6 @@ export const IconStyle = styled.img`
     max-width: none;
 `
 
-export const PersonalInfoStyle = styled.div`
-    background: #fff;
-`
-
-export const PhotoStyle = styled.div`
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-
-    > span {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-weight: bold;
-        font-size: 2rem;
-    }
-`
-
 export const InputStyle = styled.input`
     font-size: 1.25rem !important;    
     cursor: ${props => props.isEditMode ? '' : 'default'};
@@ -33,6 +15,7 @@ export const InputStyle = styled.input`
     background-color: transparent !important;
     color: ${props => props.isInversedColor ? '#fff' : '#94CC4C'}; 
     text-overflow: ellipsis;
+    font-style: ${({ value }) => value ? '' : 'italic'};
 
     &:focus {
         border-color: ${props => props.isInversedColor ? '#fff' : '#94CC4C'};
@@ -105,8 +88,4 @@ export const EditDataFieldStyle = styled.div`
     & .edit-icon {
         opacity: 0;
     }
-`
-
-export const BgGreenStyle = styled.article`
-    background-color: rgba(148,204,76,0.8);
 `

@@ -10,10 +10,11 @@ export const IconStyle = styled.img`
 
 export const FormStyle = styled.form`
     margin: 0 auto;
+    width: 70%;
 
     & > textarea {
         resize: none;
-        min-width: 300px;
+        min-width: 200px;
     }
 `
 
@@ -21,6 +22,7 @@ export const PhotoStyle = styled.div`
     width: 55px;
     height: 55px;
     border-radius: 50%;
+    flex-shrink: 0;
 
     > span {
         top: 50%;
@@ -29,12 +31,4 @@ export const PhotoStyle = styled.div`
         font-weight: bold;
         font-size: 1.3rem;
     }
-`
-
-export const MyPhotoStyle = styled(PhotoStyle)`
-    margin-right: auto;
-`
-
-export const CompanionPhotoStyle = styled(PhotoStyle)`
-    margin-left: auto;
 `

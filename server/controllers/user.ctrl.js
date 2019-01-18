@@ -46,7 +46,7 @@ const editUser = (req, res, next) => {
 }
 
 const getUserInfo = (req, res, next) => {
-    User.findById(req.params.id, { password: 0 })
+    User.findById(req.params.id, { password: 0, createdDate: 0 })
         .then((user, err) => {
             if (err)
                 res.send(err)

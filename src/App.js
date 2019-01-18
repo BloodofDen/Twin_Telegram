@@ -3,7 +3,9 @@ import styled from 'styled-components'
 import { Route } from 'react-router-dom'
 
 import Messanger from './components/Messanger/Messanger'
-import PersonalInfo from './components/PersonalInfo/PersonalInfo'
+import UserInfo from './components/UserInfo/UserInfo'
+// import GroupInfo from './components/UserInfo/GroupInfo'
+import PersonalInfo from './components/UserInfo/PersonalInfo'
 import DeleteMessage from './components/DeleteMessage/DeleteMessage'
 // import NewConversation from './components/Messanger/NewConversation/NewConversation'
 
@@ -20,6 +22,8 @@ export default () => (
     <AppStyle>
         <Route path="/" component={Messanger} />
         <Route path="/personal_info" component={PersonalInfo} />
+        <Route path="/user_info" component={UserInfo} />
+        {/* <Route path="/group_info" component={GroupInfo} /> */}
         <Route path="/m/:id/d" component={DeleteMessage} />
         {/* <Route path="/new_conversation" component={requireAuth(NewConversation)} /> */}
     </AppStyle>

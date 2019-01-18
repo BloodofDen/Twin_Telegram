@@ -134,7 +134,10 @@ Auth.contextTypes = {
     router: PropTypes.object.isRequired
 }
 
+const mapStateToProps = () => ({})
 export default connect(
-    () => ({}),
-    { SET_USER }
+    mapStateToProps,
+    {
+        SET_USER
+    }
 )(Auth)

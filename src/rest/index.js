@@ -13,15 +13,13 @@ export const signInUser = async ({ name, password }) => {
     }
 }
 
-export const sendMessage = async (messageData) => {
-    try {
-        const { data } = await axios.post(`${url}addMessage`, messageData)        
-        
-        return data
-    } catch (e) {
-        return null
-    }
-}
+export const sendMessage = messageData => axios.post(`${url}addMessage`, messageData)
+    .then(({ data }) => data)
+
+export const readMessage = (userId, conversationId) => axios.post(`${url}readMessage`, { userId, conversationId })
+
+export const getConversationInfo = (userId, conversationId) => axios.post(`${url}conversationInfo`, { userId, conversationId })
+    .then(({ data }) => data)
 
 export const signUpUser = async (userData) => {
     const res = await axios.post(`${url}user/signUp`, userData)
@@ -95,6 +93,6 @@ export const fetchMessage = (userId, messageId) => axios.post(`${url}getMessage`
     .then(({ data }) => data)
 
 export const editMessage = (messageId, newValue, editionTimeStamp) => axios.post(`${url}editMessage`, { messageId, newValue, editionTimeStamp })
-    .then((editedMessageId) => editedMessageId)
+    .then(({ editedMessageId }) => editedMessageId)
 
 export const deleteMessage = (messageId, wasDeletedGlobally) => axios.post(`${url}deleteMessage`, { messageId, wasDeletedGlobally })

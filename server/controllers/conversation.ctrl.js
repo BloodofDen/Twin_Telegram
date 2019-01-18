@@ -61,6 +61,28 @@ const getConversations = async (req, res, next) => {
     next()
 }
 
+// const getConversationInfo = async (req, res, next) => {
+//     const { userId, conversationId, isPrivate } = req.body
+
+//     try {
+//         if(isPrivate) {
+//             const userToConversation = await UserToConversation.findOne({
+//                 conversationId: ObjectId(conversationId),
+//                 userId: {
+//                     $ne: ObjectId(userId)
+//                 }
+//             })
+    
+//             const user = await getUserInfo(userToConversation.userId)
+//             res.send(user)
+//         }
+
+//         111111111111111111111111
+//     }
+// }
+
+// const getUserInfo = async (userId) => await User.findById(userId, { _id: 0, password: 0, createdDate: 0 })
+
 const getConversation = async (req, res, next) => {
     const { userId, conversationId } = req.params
 
@@ -199,9 +221,6 @@ const removeUserFromConversation = (req, res, next) => {
 const addMessage = (req, res, next) => {
     const { conversationId, fromUserId } = req.body
 
-    console.log('fromUserId::', fromUserId)
-    console.log('conversationId::', conversationId)
-
     UserToConversation.updateMany({
         userId: {
             $ne: ObjectId(fromUserId)
@@ -234,7 +253,7 @@ const getMessage = (req, res, next) => {
     const { userId, messageId } = req.body
 
     Message.findById(messageId)
-        .then((err, message) => {
+        .then((message, err) => {
             if(err) {
                 console.error('err-->', err)
                 res.send(err)
@@ -295,6 +314,25 @@ const deleteMessage = (req, res, next) => {
     )
 }
 
+const readMessage = (req, res, next) => {
+    const { userId, conversationId } = req.body
+
+    UserToConversation.findOneAndUpdate(
+        {
+            userId: ObjectId(userId),
+            conversationId: ObjectId(conversationId)
+        },
+        {
+            $inc: { unreadMessagesCount: -1 }
+        },
+        (err, updatedRecord) => {
+            res.send(updatedRecord._id)
+
+            next()
+        }
+    )
+}
+
 module.exports = {
     getConversations,
     getConversation,
@@ -304,5 +342,6 @@ module.exports = {
     addMessage,
     getMessage,
     editMessage,
-    deleteMessage
+    deleteMessage,
+    readMessage
 }
